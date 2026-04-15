@@ -4,11 +4,11 @@ import fontforge
 import importlib
 import string
 
-from config import DEFAULT_GLYPH_WIDTH, LOW_EXTREMITY
+from config import DEFAULT_GLYPH_WIDTH, LOW_EXTREMITY, HIGH_EXTREMITY
 
 FONT_NAME = "victorian"
 OUTPUT_FILE = "victorian.ttf"
-SYMBOLS_DIR = "symbols"
+LETTERS_DIR = "symbols/letters"
 
 font = fontforge.font()
 font.fontname = FONT_NAME
@@ -23,27 +23,27 @@ def define_notdef():
 
     pen = notdef.glyphPen()
     pen.moveTo((LOW_EXTREMITY, LOW_EXTREMITY))
-    pen.lineTo((700, LOW_EXTREMITY))
-    pen.lineTo((700, 700))
-    pen.lineTo((LOW_EXTREMITY, 700))
+    pen.lineTo((HIGH_EXTREMITY, LOW_EXTREMITY))
+    pen.lineTo((HIGH_EXTREMITY, HIGH_EXTREMITY))
+    pen.lineTo((LOW_EXTREMITY, HIGH_EXTREMITY))
     pen.closePath()
 
-def enumerate_letters(letters):
-    for letter in letters:
-        codepoint = ord(letter)
-        glyph = font.createChar(codepoint, letter) 
+def enumerate_symbols(symbols):
+    for symbol in symbols:
+        codepoint = ord(symbol)
+        glyph = font.createChar(codepoint, symbol) 
         glyph.width = DEFAULT_GLYPH_WIDTH
 
         try:
-            module = importlib.import_module(f"{SYMBOLS_DIR}.{letter.lower()}")
+            module = importlib.import_module(f"{LETTERS_DIR}.{symbol.lower()}")
             module.draw(glyph.glyphPen())
         except ModuleNotFoundError:
-            print(f"No symbol module for {letter}, skipping...")
+            print(f"No symbol module for {symbol}, skipping...")
 
 define_notdef()
 
-enumerate_letters(string.ascii_lowercase)
-enumerate_letters(string.ascii_uppercase)
+enumerate_symbols(string.ascii_lowercase)
+enumerate_symbols(string.ascii_uppercase)
 
 font.generate(OUTPUT_FILE)
 print(f"Font created: {OUTPUT_FILE}")
