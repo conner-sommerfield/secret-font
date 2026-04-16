@@ -43,6 +43,8 @@ fi
 if ! docker info &> /dev/null; then
   echo "❌ Docker is installed but not running."
   echo "Start Docker Desktop or run: sudo systemctl start docker"
+  echo "On Ubuntu you may have to run: sudo usermod -aG docker ubuntu and newgrp docker for permissions"
+  echo "Get information with: docker info"
   exit 1
 fi
 
