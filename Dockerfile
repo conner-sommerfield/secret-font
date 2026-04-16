@@ -48,14 +48,9 @@ CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "5173"]
 
 FROM node:20 AS frontend-prod
 
-WORKDIR /app/frontend
-
+WORKDIR /app
 COPY frontend .
-COPY --from=backend /app/assets ./public
+RUN npm install && npm run build
 
-RUN npm install
-RUN npm run build
-
-RUN npm install -g serve
-
-CMD ["serve", "-s", "dist", "-l", "5173"]
+FROM nginx:alpine
+COPY --from=frontend-prod /app/dist /usr/share/nginx/html
