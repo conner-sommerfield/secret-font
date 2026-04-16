@@ -2,7 +2,7 @@ server {
     listen 80;
 
     location /SECRET_PLACEHOLDER/ {
-        root /usr/share/nginx/html;
+        alias /usr/share/nginx/html/;
         index index.html;
         try_files $uri $uri/ /index.html;
     }
