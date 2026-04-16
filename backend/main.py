@@ -35,7 +35,7 @@ class FontGenerator:
 
     def define_notdef(self):
         notdef = self.font.createChar(0, NOTDEF_FILENAME)
-        notdef.width = 0
+        notdef.width = DEFAULT_GLYPH_WIDTH
 
         pen = notdef.glyphPen()
         pen.moveTo((0, 0))
