@@ -1,0 +1,6 @@
+version: "3.9"
+
+services:
+  build:
+    build: .
+    container_name: secret-font-builder
