@@ -72,7 +72,7 @@ server {
 EOF
 
 EXPOSE 80
-COPY docker-entrypoint.sh /docker-entrypoint.sh
-RUN chmod +x /docker-entrypoint.sh
+COPY entry.sh /entry.sh
+RUN chmod +x /entry.sh
 
-CMD ["/docker-entrypoint.sh"]
+CMD ["/entry.sh"]
