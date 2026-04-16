@@ -56,13 +56,6 @@ RUN npm install && npm run build
 FROM nginx:alpine AS server
 RUN apk add --no-cache apache2-utils
 COPY --from=frontend-prod /app/frontend/dist /usr/share/nginx/html
-RUN touch /etc/nginx/.htpasswd
-
-COPY /etc/secret-font/zix_pass.txt /run/zix_pass.txt
-COPY /etc/secret-font/cat_pass.txt /run/cat_pass.txt
-
-RUN htpasswd -bc /etc/nginx/.htpasswd zix "$(cat /run/zix_pass.txt)" \
- && htpasswd -b /etc/nginx/.htpasswd cat "$(cat /run/cat_pass.txt)"
 
 RUN cat > /etc/nginx/conf.d/default.conf <<'EOF'
 server {
@@ -79,4 +72,7 @@ server {
 EOF
 
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
+
+CMD ["/docker-entrypoint.sh"]

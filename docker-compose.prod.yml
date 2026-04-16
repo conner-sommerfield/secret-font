@@ -5,3 +5,6 @@ services:
       target: server
     ports:
       - "80:80"
+    volumes:
+      - /etc/secret-font/cat_pass.txt:/run/cat_pass.txt:ro
+      - /etc/secret-font/zix_pass.txt:/run/zix_pass.txt:ro
