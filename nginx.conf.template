@@ -1,11 +1,8 @@
-location / {
-    root /usr/share/nginx/html;
-    index index.html;
-}
+server {
+    listen 80;
 
-location = /index.html {
-    if ($arg_key != SECRET_PLACEHOLDER) {
-        return 403;
+    location / {
+        root /usr/share/nginx/html;
+        index index.html;
     }
-    root /usr/share/nginx/html;
 }
