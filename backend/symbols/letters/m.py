@@ -1,4 +1,8 @@
-from backend.config import HIGH_EXTREMITY, LOW_EXTREMITY, DEFAULT_LINE_THICKNESS
+from backend.config import (
+    HIGH_EXTREMITY, 
+    LOW_EXTREMITY, 
+    DEFAULT_LINE_THICKNESS
+)
 
 def draw(pen):
 
