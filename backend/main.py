@@ -35,13 +35,13 @@ class FontGenerator:
 
     def define_notdef(self):
         notdef = self.font.createChar(0, NOTDEF_FILENAME)
-        notdef.width = DEFAULT_GLYPH_WIDTH
+        notdef.width = 0
 
         pen = notdef.glyphPen()
-        pen.moveTo((LOW_EXTREMITY, LOW_EXTREMITY))
-        pen.lineTo((HIGH_EXTREMITY, LOW_EXTREMITY))
-        pen.lineTo((HIGH_EXTREMITY, HIGH_EXTREMITY))
-        pen.lineTo((LOW_EXTREMITY, HIGH_EXTREMITY))
+        pen.moveTo((0, 0))
+        pen.lineTo((1, 0))
+        pen.lineTo((1, 1))
+        pen.lineTo((0, 1))
         pen.closePath()
 
     def enumerate_symbols(self, symbols, package):
