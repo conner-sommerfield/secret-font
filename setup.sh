@@ -76,7 +76,6 @@ case "$COMMAND" in
     sed "s|SECRET_PLACEHOLDER|$SECRET|g" \
     nginx.conf.template > ./generated/nginx.conf
 
-    # If you use compose overrides:
     if [ -f docker-compose.prod.yml ]; then
       docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build -d
     else
