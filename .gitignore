@@ -9,3 +9,5 @@
 *.sw?
 *.egg-info
 venv/
+build/
+assets/
