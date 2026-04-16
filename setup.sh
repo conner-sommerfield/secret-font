@@ -69,12 +69,12 @@ case "$COMMAND" in
   prod)
     echo "Starting PROD environment (built assets)..."
 
-    # SECRET=$(cat /etc/secret-font/secret.key)
+    SECRET=$(cat /etc/secret-font/secret.key)
 
-    # mkdir -p ./generated
+    mkdir -p ./generated
 
-    # sed "s|SECRET_PLACEHOLDER|$SECRET|g" \
-    # nginx.conf.template > ./generated/nginx.conf
+    sed "s|SECRET_PLACEHOLDER|$SECRET|g" \
+    nginx.conf.template > ./generated/nginx.conf
 
     if [ -f docker-compose.prod.yml ]; then
       docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build -d

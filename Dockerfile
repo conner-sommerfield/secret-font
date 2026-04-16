@@ -57,20 +57,6 @@ FROM nginx:alpine AS server
 RUN apk add --no-cache apache2-utils
 COPY --from=frontend-prod /app/frontend/dist /usr/share/nginx/html
 
-RUN cat > /etc/nginx/conf.d/default.conf <<'EOF'
-server {
-    listen 80;
-
-    location / {
-        auth_basic "Private Site";
-        auth_basic_user_file /etc/nginx/.htpasswd;
-
-        root /usr/share/nginx/html;
-        try_files $uri $uri/ /index.html;
-    }
-}
-EOF
-
 EXPOSE 80
 COPY entry.sh /entry.sh
 RUN chmod +x /entry.sh
