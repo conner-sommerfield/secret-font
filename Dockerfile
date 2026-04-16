@@ -33,7 +33,7 @@ RUN generate-glyphs
 
 FROM node:20 AS frontend-dev
 
-WORKDIR /app/frontend
+WORKDIR /app
 
 COPY frontend .
 COPY --from=backend /app/assets ./public
@@ -50,9 +50,10 @@ FROM node:20 AS frontend-prod
 
 WORKDIR /app
 COPY frontend .
+COPY --from=backend /app/assets /app/frontend/public
 RUN npm install && npm run build
 
-FROM nginx:alpine
+FROM nginx:alpine AS server
 COPY --from=frontend-prod /app/dist /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
