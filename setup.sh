@@ -78,7 +78,7 @@ case "$COMMAND" in
 
     # If you use compose overrides:
     if [ -f docker-compose.prod.yml ]; then
-      docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build
+      docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build -d
     else
       echo "⚠️ No docker-compose.prod.yml found, falling back to normal compose"
       docker compose up --build
