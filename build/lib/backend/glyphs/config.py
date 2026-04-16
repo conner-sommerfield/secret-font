@@ -1,0 +1,10 @@
+import string
+
+FONT_SIZE = 64
+IMAGE_SIZE = (100, 100)
+
+BACKGROUND_COLOR = "black"
+TEXT_COLOR = "purple"
+
+DRAW_OFFSET = (20, 10)
+IMAGE_MODE = "RGB"
