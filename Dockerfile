@@ -28,17 +28,33 @@ RUN pip install .
 # RUN python3 -m backend.glyphs.cli
 
 # ------------------------
-# 2. Frontend
+# 2. Frontend Dev
 # ------------------------
-FROM node:20 AS frontend
 
-WORKDIR /app
-
-COPY frontend ./frontend
-
-COPY --from=backend /app/backend/assets ./frontend/public
+FROM node:20 AS frontend-dev
 
 WORKDIR /app/frontend
 
+COPY frontend .
+
+RUN npm install
+
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "5173"]
+
+# ------------------------
+# 3. Frontend Prod
+# ------------------------
+
+FROM node:20 AS frontend-prod
+
+WORKDIR /app/frontend
+
+COPY frontend .
+COPY --from=backend /app/assets ./public
+
 RUN npm install
 RUN npm run build
+
+RUN npm install -g serve
+
+CMD ["serve", "-s", "dist", "-l", "5173"]
