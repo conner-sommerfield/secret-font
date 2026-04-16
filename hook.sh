@@ -1,7 +1,12 @@
 #!/bin/bash
 set -e
 
-echo "Deploy triggered..."
+LOG_FILE="/home/ubuntu/deploy.log"
+exec > >(tee -a "$LOG_FILE") 2>&1
+
+echo "=============================="
+echo "Deploy started: $(date)"
+echo "=============================="
 
 HOME_DIR="/home/ubuntu"
 APP_DIR="$HOME_DIR/secret-font"

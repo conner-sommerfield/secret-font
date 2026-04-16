@@ -3,19 +3,38 @@ set -e
 
 echo " Starting secret-font project..."
 
-# ----------------------------
-# Check Docker
-# ----------------------------
+# ------------------------
+# 1. Check Docker
+# ------------------------
 if ! command -v docker &> /dev/null; then
-  echo "❌ Docker is not installed."
+  echo "Docker not found. Installing..."
 
-  echo ""
-  echo "  Install Docker first:"
-  echo "   macOS: https://www.docker.com/products/docker-desktop/"
-  echo "   Ubuntu: sudo apt install docker.io docker-compose-plugin"
-  echo ""
+  sudo apt-get update
+  sudo apt-get install -y ca-certificates curl gnupg
 
-  exit 1
+  sudo install -m 0755 -d /etc/apt/keyrings
+
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+  sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+  echo \
+    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+    $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+  sudo apt-get update
+
+  sudo apt-get install -y \
+    docker-ce \
+    docker-ce-cli \
+    containerd.io \
+    docker-buildx-plugin \
+    docker-compose-plugin
+
+  echo "✅ Docker installed"
+else
+  echo "✅ Docker already installed"
 fi
 
 # ----------------------------
