@@ -24,8 +24,8 @@ RUN python3 -m pip install --upgrade pip setuptools wheel
 RUN pip install .
 
 # Run font generator
-# RUN python3 -m backend.main
-# RUN python3 -m backend.glyphs.cli
+RUN generate-font
+RUN generate-glyphs
 
 # ------------------------
 # 2. Frontend Dev
