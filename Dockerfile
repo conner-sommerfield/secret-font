@@ -36,6 +36,7 @@ FROM node:20 AS frontend-dev
 WORKDIR /app/frontend
 
 COPY frontend .
+COPY --from=backend /app/assets ./public
 
 RUN npm install
 
