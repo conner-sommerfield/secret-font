@@ -1,7 +1,7 @@
 # config.py
 from pathlib import Path
 
-FONT_NAME = "victorian"
+FONT_NAME = "kasse"
 
 PROJECT_ROOT = Path.cwd()
 

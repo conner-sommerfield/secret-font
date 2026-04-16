@@ -14,7 +14,7 @@ function App() {
           <p>Download the ttf file to use the secret font</p>
         </div>
 
-        <a href="/victorian.ttf" download>
+        <a href="/kasse.ttf" download>
           <button className="font">
             Download font
           </button>
